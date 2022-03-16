@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>主 页</title>
+    <script type="text/javascript" th:src="@{/static/js/jquery-1.12.4.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/static/bootstrap-3.4.1-dist/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/index.css}"/>
+    <script th:src="@{/static/bootstrap-3.4.1-dist/js/bootstrap.min.js}"></script>
+</head>
+<body>
+    <div id="all">
+        <div id="top">
+            <div id="top1">
+                <span>商品管理系统</span>
+            </div>
+            <div id="top2"></div>
+            <div id="top3">
+                <span>欢迎您, <span th:text="${admin.aName}"></span></span>
+            </div>
+        </div>
+        <div id="bottom">
+            <!--下部分左边-->
+            <div id="bleft">
+                <div id="ltop">
+                    <div id="lts">
+                        <img th:src="@{/static/images/logo.jpg}" alt="LOGO"/><br />
+                        <p style="text-align: center;">随机访客</p>
+                    </div>
+                </div>
+                <div id="lbottom">
+                    <ul>
+                        <a th:href="@{/prod}" target="myright" >
+                            <li class="two"><span class="glyphicon glyphicon-book" style="color: white;"></span>&nbsp;&nbsp;&nbsp;&nbsp;商品管理&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-play" style="color: white;"></span> </li>
+                        </a>
+                        <a href="" target="myright">
+                            <li class="one"><span class="glyphicon glyphicon-sort" style="color: white;"></span>&nbsp;&nbsp;&nbsp;&nbsp;订单管理&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-play" style="color: white;"></span> </li>
+                        </a>
+                        <a href="" target="myright">
+                            <li class="one"><span class="glyphicon glyphicon-user" style="color: white;"></span>&nbsp;&nbsp;&nbsp;&nbsp;用户管理&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-play" style="color: white;"></span> </li>
+                        </a>
+                        <a href="" target="myright">
+                            <li class="one"><span class="glyphicon glyphicon-bullhorn" style="color: white"></span>&nbsp;&nbsp;&nbsp;&nbsp;通知公告&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-play" style="color: white;"></span> </li>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+            <!--下部分右边-->
+            <div id="bright">
+                <iframe frameborder="0" scrolling="yes" name="myright" width="1235px" height="700px" ></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

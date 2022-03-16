@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商品添加</title>
+    <script type="text/javascript" th:src="@{/static/js/jquery-1.12.4.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/static/bootstrap-3.4.1-dist/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/addBook.css}" />
+    <script th:src="@{/static/bootstrap-3.4.1-dist/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/ajaxfileupload.js}"></script>
+</head>
+
+<body>
+    <div id="addAll">
+        <div id="nav">
+            <p>商品管理>新增商品</p>
+        </div>
+
+        <div id="table">
+            <form id="myform">
+                <table>
+                    <tr>
+                        <td class="one">商品名称</td>
+                        <td><input type="text" name="pName" class="two"></td>
+                    </tr>
+                    <!--错误提示-->
+                    <tr class="three">
+                        <td class="four"></td>
+                        <td><span id="pnameerr"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="one">商品介绍</td>
+                        <td><input type="text" name="pContent" class="two"></td>
+                    </tr>
+                    <!--错误提示-->
+                    <tr class="three">
+                        <td class="four"></td>
+                        <td><span id="pcontenterr"></span></td>
+                    </tr>
+                    <tr>
+                        <td class="one">定价</td>
+                        <td><input type="number" name="pPrice" class="two"></td>
+                    </tr>
+                    <!--错误提示-->
+                    <tr class="three">
+                        <td class="four"></td>
+                        <td><span id="priceerr"></span></td>
+                    </tr>
+
+                    <tr>
+                        <td class="three">图片介绍</td>
+                        <td> <br><div id="imgDiv" style="display:block; width: 40px; height: 50px;">
+                        </div><br><br><br><br>
+                            <input type="file" id="pimage" name="pimage" onchange="upload()">
+                            <script type="text/javascript" th:inline="javascript">
+                                function upload() {
+                                    $.ajaxFileUpload({
+                                        url:[[@{/prodImage}]],
+                                        secureuri: false,
+                                        fileElementId: 'pimage',
+                                        dataType: 'text',
+                                        success: function (result) {
+                                            alert(result);
+                                            var img = $("<img width='100px' height='100px' alt='Image'>");
+                                            img.attr("src", [[@{/static/image_big/}]] + result);
+                                            img.appendTo("#imgDiv");
+                                            $("#imgDiv").attr("file_name", result);
+                                        }
+                                    });
+                                }
+                            </script>
+                            <span id="imgName" ></span><br>
+
+                        </td>
+                    </tr>
+                    <tr class="three">
+                        <td class="four"></td>
+                        <td><span></span></td>
+                    </tr>
+
+                    <tr>
+                        <td class="one">总数量</td>
+                        <td><input type="number" name="pNumber" class="two"></td>
+                    </tr>
+                    <!--错误提示-->
+                    <tr class="three">
+                        <td class="four"></td>
+                        <td><span id="numerr"></span></td>
+                    </tr>
+
+
+                    <tr>
+                        <td class="one">类别</td>
+                        <td>
+                            <select name="typeId" >
+                            </select>
+                        </td>
+                    </tr>
+                    <!--错误提示-->
+                    <tr class="three">
+                        <td class="four"></td>
+                        <td><span></span></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <input type="button" value="提交" class="btn btn-success" id="prod_add_btn">
+                        </td>
+                        <td>
+                            <input type="reset" value="取消" class="btn btn-default" onclick="">
+<!--                            <script type="text/javascript">-->
+<!--                                function myclose(ispage) {-->
+<!--                                    window.location="${pageContext.request.contextPath}/prod/split.action?page="+ispage;-->
+<!--                                }-->
+<!--                            </script>-->
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" th:inline="javascript">
+    $(function () {
+        $.ajax({
+            url: [[@{/getTypes}]],
+                type: "GET",
+            success: function (result) {
+            build_type_select(result);
+        }
+        });
+    });
+
+        function build_type_select(result) {
+            $("#myform select").empty();
+            var defaultSelect = $("<option></option>").append("请选择").attr("vaule", "-1");
+            defaultSelect.appendTo("#myform select");
+            $.each(result.extend.typeList, function () {
+                var optionEle = $("<option></option>").append(this.typeName).attr("value", this.typeId);
+                optionEle.appendTo("#myform select");
+            });
+        }
+        
+   $("#prod_add_btn").click(function () {
+
+       $.ajax({
+            url: [[@{/product}]],
+            type: "POST",
+            data: $("#myform").serialize(),
+            success: function (result) {
+                alert("添加成功");
+            }
+
+       });
+   });     
+</script>
+</html>
